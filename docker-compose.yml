@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  node:
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 80
+    environment:
+      - PORT=80
+    stdin_open: true # for `react-scripts start`
+    working_dir: /app
+    volumes:
+      - .:/app
+    networks:
+      default:
+      buoy:
+        aliases:
+          - tic-tac-react
+
+networks:
+  buoy:
+    external:
+      name: buoy
